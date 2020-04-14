@@ -1,0 +1,9 @@
+com:
+  ixortalk:
+    security:
+      jwt:
+        aws:
+          userPoolId: "us-west-2_LiJiDoRTs"
+          identityPoolId: "us-west-2:2db4cf58-6da1-4024-983b-0665a7330b53"
+          region: "us-west-2"
+
