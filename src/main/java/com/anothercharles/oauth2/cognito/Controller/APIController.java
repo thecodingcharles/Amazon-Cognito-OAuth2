@@ -1,13 +1,11 @@
 package com.anothercharles.oauth2.cognito.Controller;
 
-import com.anothercharles.oauth2.cognito.config.JwtAuthentication;
 import com.oracle.javafx.jmx.json.JSONException;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.*;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -15,12 +13,13 @@ import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-public class HelloController {
+@RequestMapping("/api")
+public class APIController {
 
 
     private RestTemplate restTemplate;
 
-    public HelloController(RestTemplate restTemplate) {
+    public APIController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
@@ -34,7 +33,7 @@ public class HelloController {
             return new HttpEntity<>(body.toString(),headers);
     }
 
-    @GetMapping(value = {"hello", ""}, produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = {"/hello"}, produces = MediaType.TEXT_HTML_VALUE)
     public String hello(HttpServletRequest request){
 
 
@@ -48,15 +47,15 @@ public class HelloController {
 
         try {
             greeting = new JSONObject(response.getBody()).getString("message");
-
         } catch (JSONException e) {
             return null;
         }
-
         return "<h1>"+ greeting+"</h1>";
+    }
 
-
-
+    @GetMapping(value = {"/canIseethis"}, produces = MediaType.TEXT_HTML_VALUE)
+    public String hello(){
+        return "<h1>YES YOU CAN</h1>";
     }
 
 }

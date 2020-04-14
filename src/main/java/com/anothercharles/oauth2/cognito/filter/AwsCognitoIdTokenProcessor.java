@@ -52,12 +52,13 @@ public class AwsCognitoIdTokenProcessor {
 
     @Autowired
     private JwtConfiguration jwtConfiguration;
+    @Autowired
+    private JwtIdTokenCredentialsHolder jwtIdTokenCredentialsHolder;
 
     @Autowired
     private ConfigurableJWTProcessor configurableJWTProcessor;
 
-    @Autowired
-    private JwtIdTokenCredentialsHolder jwtIdTokenCredentialsHolder;
+
 
     public Authentication getAuthentication(HttpServletRequest request) throws Exception {
 
