@@ -1,8 +1,10 @@
 package com.anothercharles.oauth2.cognito.Controller;
 
+import com.anothercharles.oauth2.cognito.config.JwtIdTokenCredentialsHolder;
 import com.oracle.javafx.jmx.json.JSONException;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api")
 public class APIController {
-
-
+    @Autowired
+    private JwtIdTokenCredentialsHolder  jwtIdTokenCredentialsHolder;
     private RestTemplate restTemplate;
 
     public APIController(RestTemplate restTemplate) {
@@ -50,12 +52,14 @@ public class APIController {
         } catch (JSONException e) {
             return null;
         }
+
+
         return "<h1>"+ greeting+"</h1>";
     }
 
     @GetMapping(value = {"/canIseethis"}, produces = MediaType.TEXT_HTML_VALUE)
     public String hello(){
-        return "<h1>YES YOU CAN</h1>";
+        return "<h1>YES YOU CAN " +  jwtIdTokenCredentialsHolder.getIdToken() + "</h1>";
     }
 
 }
